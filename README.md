@@ -16,7 +16,7 @@ Run docker daemon
 systemctl start docker
 ```
 
-Add user to group "docker" as root:
+Add user to group "docker" as root
 ```bash
 usermod -aG docker <username>
 ```
@@ -36,12 +36,11 @@ Yes, this means that X11 is needed.
 ## Dockerfile customization
 
 If you want different ROS distribution, you should open `Dockerfile` with
-text editor and change the line:
+text editor and change the line
 ```bash
 FROM <desired ros image>
 ```
-according to the available ROS images. Then open `entrypoint.sh` and edit
-this line accordingly:
+Then open `entrypoint.sh` and edit this line accordingly
 ```bash
 source /opt/ros/<desired ros distribution>/setup.bash
 ```
@@ -52,14 +51,34 @@ lines and put your `.vimrc` file inside the `configs` directory.
 
 ## Using scripts
 
-Now we are ready to build our ROS image with script `build_ros_image.sh`.
-Then, to make a new container, use `run_ros_container.sh`. If this script
-was executed before, then the container already exists. To activate it, use
-`start_ros_container.sh`. To get inside the container in new terminal, use
-`ros_root_exec.sh` or `ros_user_exec.sh`, to have a root or user privileges
-respectively. You can also change image name `my_ros_img` and container
-name `my_ros_container` in these scripts to your liking. That should be
-enough, but some useful docker commands are listed below.
+Now we are ready to build our ROS image with the script
+```bash
+./build_ros_image.sh
+```
+
+Then, to make a new container, use
+```bash
+./run_ros_container.sh
+```
+
+If this script was executed before, then the container already exists. To
+activate it, use
+```bash
+./start_ros_container.sh
+```
+
+To get inside the container in a new terminal, use
+```bash
+./ros_root_exec.sh
+```
+or
+```bash
+./ros_user_exec.sh
+```
+to have a root or user privileges respectively. You can also change image
+name `my_ros_img` and container name `my_ros_container` in these scripts to
+your liking. That should be enough, but some useful docker commands are
+listed below.
 
 # Useful docker commands in case something goes wrong
 
@@ -83,7 +102,7 @@ or
 docker rmi -f <image-name>
 ```
 
-Remove dangling images:
+## Remove dangling images
 ```bash
 docker rmi $(docker images -f "dangling=true" -q)
 ```
